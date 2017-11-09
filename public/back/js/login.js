@@ -35,7 +35,7 @@ $(function(){
                         message:"密码不能为空"
                     },
                     stringLength:{
-                        min:6,
+                        min:3,
                         max:12,
                         message:"密码长度是6-12位"
                     },
@@ -63,20 +63,27 @@ $(function(){
                 }
 
                 if(data.error === 1000){
-                    alert("用户名不存在");
+                    //alert("用户名不存在");
                     //使用updateStatus方法，主动把username这个字段变成校验失败
                     //第一个参数：字段名  表单中的name属性
                     //第二个参数：INVALID :校验失败
                     //第三个参数：配置提示消息
-
+                    $form.data('bootstrapValidator').updateStatus("username","INVALID","callback");
                 }
 
                 if(data.error === 1001){
-                    alert("密码不存在");
+                    $form.data('bootstrapValidator').updateStatus("password","INVALID","callback");
                 }
             }
         });
 
     });
+
+
+    //  重置功能部分
+
+   $("[type='reset']").on("click",function(){
+       $form.data('bootstrapValidator').resetForm();
+   });
 
 });
